@@ -1,0 +1,440 @@
+" vim: set ft=vim:
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Configuration
+" 
+" Author: kaiix <kvn.hou@gmail.com>
+"
+" Sections;
+" --------------------------------
+" General
+" VIM UI
+" Colors and Fonts
+" Files and backups
+" Text options
+" Indent
+" Moving around, tabs and buffers
+" Statusline
+" General Abbrevs
+" Cope
+" Python
+" Folding
+" Vim grep
+" MISC
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" =============== Vundle Initialization ==============
+" This loads all the plugins specified in ~/.vim/vundle.vim
+" Use Vundle plugin to manage all other plugins
+if filereadable(expand("~/.vim/vundles.vim"))
+  source ~/.vim/vundles.vim
+endif
+
+"Sets how many lines of history VIM keeps
+set history=700
+
+"Enable filetype plugin
+filetype plugin on
+filetype indent on
+
+"Set to auto read when a file change out side from VIM
+set autoread
+
+"Set mapleader (<leader> var = func())
+let mapleader = ","
+let g:mapleader = ","
+
+"Fast saving
+nmap <leader>w :w!<cr>
+command W w !sudo tee % > /dev/null
+
+"Have the mouse enable all the time
+"set mouse=a
+
+"Get out of VI's compatible mode
+set nocompatible
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM UI
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Set 7 lines to the cursors - when moving vertical.
+set so=7
+
+"Turn on WiLd menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore+=*.o,*.obj,.git,*.pyc,.svn
+
+"Always show current position
+set ruler
+
+"The commandbar is 2 high
+set cmdheight=2
+
+"Change buffer - without saving
+set hid
+
+"Set backspace config
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+"Set search config
+set ignorecase
+set smartcase  "precise search when input uppercase word
+
+set hlsearch
+set incsearch
+"set nolazyredraw "?
+set lazyredraw
+
+" Regular expressions
+set magic
+
+"Show matching brackets
+set showmatch
+"How many tenths of a second to blink
+set mat=2
+
+"No sound on errors.
+"set noerrorbells
+"set novisualbell
+"set t_vb=
+"set tm=500
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+set term=xterm-256color
+
+"Enable syntax highlight
+syntax enable 
+
+set nu
+set guifont=Monaco\ 10
+
+" solarized color
+let g:solarized_termcolors=16
+let g:solarized_termtrans=1
+"let g:solarized_visibility = "normal"
+"let g:solarized_contrast = "normal"
+
+if has("gui_running")
+    set background=light
+else
+    set background=dark
+endif
+colorscheme solarized 
+
+" file format
+set encoding=utf8
+try
+    lang en_us
+catch
+endtry
+
+set ffs=unix,dos,mac
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Files and backups
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Text options
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab       "replace tab with space
+set shiftwidth=4    "how many space for indentation
+set tabstop=4
+set smarttab         "easy when you use backspace
+
+"set wrap
+"set tw=500
+"set lbr
+set nowrap
+
+"""""""""""""""
+" Indent
+"""""""""""""""
+set ai
+"set si
+set nosi
+set cindent
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Moving around, tabs and buffers
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Turn off highlight by ,<cr>
+map <silent> <leader>h :noh<cr>
+
+"Smart way to move btw. windows
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-h> <c-w>h
+map <c-l> <c-w>l
+
+"Tab configuration
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+"map <leader>te :tabedit
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+"Switch to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>
+
+"Split options
+map <leader>hs :split<cr>
+map <leader>vs :vsplit<cr>
+
+nnoremap 0 ^
+
+""""""""""""""""""""
+" Buffer
+""""""""""""""""""""
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+" Close all the buffers
+map <leader>ba :1,300 bd!<cr>
+" Use the arrows to something usefull
+map <right> :bn<cr>
+map <left> :bp<cr>
+
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+"Specify the behavior when switching between buffers
+try
+    set switchbuf=usetab
+    set stal=2
+catch
+endtry
+
+"""""""""""""""""""
+" Statusline
+"""""""""""""""""""
+"Always hide the statusline
+set laststatus=2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Abbrevs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"My information
+iab xpython     #!/usr/bin/python
+iab xutf8       # coding: utf-8
+iab xdate       <c-r>=strftime("%y%m%d")<cr>
+iab xauthor     kaiix <kvn.hou@gmail.com>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Cope
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>cc :botright cope<cr>
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C/C++
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au FileType c inoremap <buffer> $i #include
+au FileType c inoremap <buffer> $d #define
+au FileType c inoremap <buffer> $r return
+au FileType c inoremap <buffer> $m int main()<cr>{<cr>
+au FileType c inoremap <buffer> $f --- PH ----------<esc>FP2xi
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let python_highlight_all = 1
+let python_slow_sync = 1
+au FileType python setl nocindent
+au FileType python setl complete-=i
+au FileType python setl mp=pyflakes\ %
+au FileType python syn keyword pythonDecorator True None False self
+au FileType python inoremap <buffer> $i import
+au FileType python inoremap <buffer> $s self
+au FileType python inoremap <buffer> $p print
+au FileType python inoremap <buffer> $r return
+au FileType python inoremap <buffer> $c class
+au FileType python inoremap <buffer> $o object
+au FileType python inoremap <buffer> $m if __name__ == '__main__':<cr>
+au FileType python inoremap <buffer> $_ def __init__(self, 
+au FileType python inoremap <buffer> $f --- PH ----------<esc>FP2xi
+ 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Scheme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au FileType scheme syn keyword schemeFunc error
+au FileType scheme inoremap <buffer> $d define
+au FileType scheme inoremap <buffer> $l lambda
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JavaScript
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au FileType javascript inoremap <buffer> $r return 
+au FileType javascript inoremap <buffer> $f function
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Comment
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"au FileType python vnoremap <buffer> <leader><space> :s/^/#/ge<cr>:noh<cr> 
+"au FileType scheme vnoremap <buffer> <leader><space> :s/^/;;/ge<cr>:noh<cr> 
+vnoremap <silent><leader><space> :call LineCommenter()<Esc>
+nmap <silent><leader><space> :call LineCommenter()<Esc>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Folding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Enable folding
+"set fen
+"set foldmethod=marker
+"set fdl=0
+
+""""""""""""""""""""
+" CTags and Taglist
+""""""""""""""""""""
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags" " Location of my ctags
+let Tlist_Sort_Type = "name" " order by 
+let Tlist_Use_Right_Window = 0 " split to the left side of the screen
+let Tlist_Compart_Format = 1 " show small meny
+let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
+let Tlist_File_Fold_Auto_Close = 0 " Do not close tags for other files
+let Tlist_Enable_Fold_Column = 0 " Do not show folding tree
+let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function'
+
+set tags=./tags,./../tags,./../../tags,./**/tags,tags " which tags files CTRL-] will search
+"set autochdir " auto change the current dierctory when you open the file or window or any other buffer  Vim64 not support
+set makeef=makeerror.err
+"set path=.,./../**,/usr/include/*,,
+"set path=.,./../**,,
+"set path=.,
+
+""""""""""""""""""""
+" Vim grep
+""""""""""""""""""""
+let Grep_Skip_Dirs = '.svn'
+set grepprg=/bin/grep\ -nH
+"Quick open vimgrep
+map <leader>vg :vimgrep
+map <leader>gp :vimgrep /<c-r>"/ **/*.*
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Omni complete functions (c-x c-o)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+inoremap $$ <c-x><c-o>
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html set omnifunc=csscomplete#CompleteCSS
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+""""""""""""""""""""
+" Command-T
+""""""""""""""""""""
+let g:CommandTMaxHeight = 15
+let g:CommandTCancelMap = '<Esc>'
+noremap <leader>j :CommandT<cr>
+noremap <leader>y :CommandTFlush<cr>
+
+""""""""""""""""""""""""""""""
+" CTRL-P
+""""""""""""""""""""""""""""""
+"let g:ctrlp_map = '<leader>j'
+"let g:ctrlp_working_path_mode = 0
+"
+"noremap <leader>y :CtrlPBuffer<cr>
+"
+"let g:ctrlp_max_height = 15
+"let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
+
+""""""""""""""""""""""""""""""
+" Powerline
+""""""""""""""""""""""""""""""
+"let g:Powerline_symbols = 'fancy'
+let g:Powerline_stl_path_style = 'short'
+
+""""""""""""""""""""""""""""""
+" Ack
+""""""""""""""""""""""""""""""
+noremap <leader>a <Esc>:Ack! 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Nerd Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark 
+map <leader>nf :NERDTreeFind<cr>
+
+""""""""""""""""""""
+" MISC
+""""""""""""""""""""
+autocmd! bufwritepost *.vimrc source $HOME/.vimrc
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+nnoremap <Space> }
+vnoremap <Space> }
+"nnoremap <S-Space> {
+
+au bufreadpost,filereadpost *.jad set ft=java
+au bufreadpost,filereadpost ~/.bash_aliases set ft=sh
+
+" vim 7.3 aligning line
+set cc=80
+set clipboard+=unnamed
+
+map ,ch :call SetColorColumn()<CR>
+function! SetColorColumn()
+    let col_num = virtcol(".")
+    let cc_list = split(&cc, ',')
+    if count(cc_list, string(col_num)) <= 0
+        execute "set cc+=".col_num
+    else
+        execute "set cc-=".col_num
+    endif
+endfunction
