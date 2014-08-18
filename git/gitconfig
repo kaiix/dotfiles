@@ -1,0 +1,29 @@
+[user]
+    name = kaiix
+    email = kvn.hou@gmail.com
+[core]
+    autocrlf = input
+    safecrlf = true
+    eol=lf
+    excludesfile = /Users/kaiix/.gitignore
+    editor = vim
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+    ls = ls-files
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+[push]
+    default = matching
+[diff]
+    tool = vimdiff
+[credential]
+    helper = osxkeychain
