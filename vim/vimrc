@@ -395,6 +395,11 @@ noremap <leader>y :CommandTFlush<cr>
 let g:Powerline_stl_path_style = 'short'
 
 """"""""""""""""""""""""""""""
+" airline
+""""""""""""""""""""""""""""""
+let g:airline_detect_whitespace=0
+
+""""""""""""""""""""""""""""""
 " Ack
 """"""""""""""""""""""""""""""
 noremap <leader>a <Esc>:Ack! 
