@@ -36,6 +36,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'majutsushi/tagbar'  " require ctags
 
 if has('ruby')
     Plugin 'wincent/command-t'
@@ -51,7 +52,6 @@ endif
 "Plugin 'pythoncomplete'
 "Plugin 'taglist'
 "Plugin 'Lokaltog/powerline'
-"Plugin 'majutsushi/tagbar'
 "Plugin 'scrooloose/nerdcommenter'
 "Plugin 'plasticboy/vim-markdown'
 "Plugin 'godlygeek/tabular'
