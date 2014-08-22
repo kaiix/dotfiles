@@ -5,7 +5,7 @@
     autocrlf = input
     safecrlf = true
     eol=lf
-    excludesfile = /Users/kaiix/.gitignore
+    excludesfile = ~/.gitignore
     editor = vim
 [alias]
     co = checkout
