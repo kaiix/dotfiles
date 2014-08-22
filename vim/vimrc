@@ -37,7 +37,6 @@ set ffs=unix,dos,mac
 set list listchars=tab:»·,trail:·
 set hidden
 set whichwrap+=<,>,h,l
-set foldcolumn=1
 set ruler
 set mouse-=a
 set showtabline=2
@@ -51,6 +50,11 @@ let g:mapleader = ","
 
 nnoremap 0 ^
 
+" ================ Folds =============================
+set foldcolumn=1
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
 
 " ================ Sounding ==========================
 "No sound on errors.
