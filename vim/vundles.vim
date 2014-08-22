@@ -37,6 +37,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'majutsushi/tagbar'  " require ctags
+Plugin 'edkolev/tmuxline.vim'
 
 if has('ruby')
     Plugin 'wincent/command-t'  "compile with vim ruby version
