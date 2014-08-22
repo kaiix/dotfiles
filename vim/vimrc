@@ -31,15 +31,15 @@ set nosi
 set cindent
 set nowrap
 
-set ruler
-set hidden
-set whichwrap+=<,>,h,l
-set list listchars=tab:»·,trail:·
-set foldcolumn=1
-set ffs=unix,dos,mac
 set cc=80
 set clipboard+=unnamed
-
+set ffs=unix,dos,mac
+set list listchars=tab:»·,trail:·
+set hidden
+set whichwrap+=<,>,h,l
+set foldcolumn=1
+set ruler
+set showtabline=2
 
 set mouse-=a
 
