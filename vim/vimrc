@@ -266,6 +266,8 @@ au bufreadpost,filereadpost ~/.bash_aliases set ft=sh
 set laststatus=2
 let g:airline_detect_whitespace=0
 let g:tmuxline_powerline_separators = 0
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 " ------------------ python-mode ---------------------
 let g:pymode_doc=0

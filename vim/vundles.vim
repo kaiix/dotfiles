@@ -39,7 +39,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'majutsushi/tagbar'  " require ctags
 
 if has('ruby')
-    Plugin 'wincent/command-t'
+    Plugin 'wincent/command-t'  "compile with vim ruby version
 else
     Plugin 'kien/ctrlp.vim'
 endif
