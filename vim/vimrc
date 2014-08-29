@@ -276,6 +276,7 @@ let g:airline_right_sep = ''
 " ------------------ python-mode ---------------------
 let g:pymode_doc=0
 set completeopt=menu
+let g:pymode_lint_cwindow=0
 
 " ---------------- ctrlp.vim -------------------------
 let g:ctrlp_map = '<leader>j'
@@ -302,3 +303,5 @@ map <leader>nf :NERDTreeFind<cr>
 vnoremap <silent><leader><space> :call LineCommenter()<Esc>
 nmap <silent><leader><space> :call LineCommenter()<Esc>
 
+" ------------------ Tagbar -------------------------
+noremap <leader>tb :TagbarToggle<cr>
