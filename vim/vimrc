@@ -305,5 +305,8 @@ map <leader>nf :NERDTreeFind<cr>
 vnoremap <silent><leader><space> :call LineCommenter()<Esc>
 nmap <silent><leader><space> :call LineCommenter()<Esc>
 
+" ---------------- syntastic -------------------------
+let g:syntastic_python_checkers = ['pyflakes', 'python']
+
 " ------------------ Tagbar -------------------------
 noremap <leader>tb :TagbarToggle<cr>
