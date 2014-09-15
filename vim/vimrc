@@ -144,7 +144,7 @@ map <leader>vs :vsplit<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+map <leader>tm :tabmove<Space>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -275,21 +275,23 @@ let g:airline_right_sep = ''
 
 " ------------------ python-mode ---------------------
 let g:pymode_doc=0
-set completeopt=menu
+set completeopt-=preview
 let g:pymode_lint_cwindow=0
 
 " ---------------- ctrlp.vim -------------------------
 let g:ctrlp_map = '<leader>j'
 let g:ctrlp_working_path_mode = 0
-noremap <leader>y :CtrlPBuffer<cr>
+noremap <leader>y :CtrlPClearCache<cr>
 "let g:ctrlp_max_height = 15
 "let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
 
 " ---------------- command-t -------------------------
-let g:CommandTMaxHeight = 15
-let g:CommandTCancelMap = '<Esc>'
-noremap <leader>j :CommandT<cr>
-noremap <leader>y :CommandTFlush<cr>
+if has('ruby')
+    let g:CommandTMaxHeight = 15
+    let g:CommandTCancelMap = '<Esc>'
+    noremap <leader>j :CommandT<cr>
+    noremap <leader>y :CommandTFlush<cr>
+endif
 
 " ------------------ Ack -----------------------------
 noremap <leader>a <Esc>:Ack! 
