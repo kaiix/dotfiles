@@ -158,11 +158,14 @@ nnoremap <Space> }
 vnoremap <Space> }
 "nnoremap <S-Space> {
 
+nnoremap g0 :tabfirst<cr>
+nnoremap g$ :tablast<cr>
+
 
 " ================ Abbrevs ===========================
 "My information
-iab xpython     #!/usr/bin/python
-iab xutf8       # coding: utf-8
+iab xpython     #!/usr/bin/env python
+iab xutf8       # -*- coding: utf-8 -*-
 iab xdate       <c-r>=strftime("%y%m%d")<cr>
 iab xauthor     kaiix <kvn.hou@gmail.com>
 
@@ -294,7 +297,7 @@ if has('ruby')
 endif
 
 " ------------------ Ack -----------------------------
-noremap <leader>a <Esc>:Ack! 
+noremap <leader>a <Esc>:Ack! <c-r>" 
 
 " ---------------- NerdTree --------------------------
 map <leader>nn :NERDTreeToggle<cr>
@@ -310,3 +313,11 @@ let g:syntastic_python_checkers = ['pyflakes', 'python']
 
 " ------------------ Tagbar -------------------------
 noremap <leader>tb :TagbarToggle<cr>
+
+" ------------------ Tabular -------------------------
+if exists(":Tabularize")
+    nmap <leader>a= :Tabularize /=<CR>
+    vmap <leader>a= :Tabularize /=<CR>
+    nmap <leader>a: :Tabularize /:\zs<CR>
+    vmap <leader>a: :Tabularize /:\zs<CR>
+endif

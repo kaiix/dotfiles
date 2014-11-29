@@ -16,6 +16,9 @@
     type = cat-file -t
     dump = cat-file -p
     ls = ls-files
+    hide = update-index --assume-unchanged
+    unhide = update-index --no-assume-unchanged
+    hidden = !git ls-files -v | grep "^[a-z]"
 [color]
     diff = auto
     status = auto
