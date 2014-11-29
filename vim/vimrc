@@ -291,14 +291,6 @@ noremap <leader>y :CtrlPClearCache<cr>
 "let g:ctrlp_max_height = 15
 "let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
 
-" ---------------- command-t -------------------------
-if has('ruby')
-    let g:CommandTMaxHeight = 15
-    let g:CommandTCancelMap = '<Esc>'
-    noremap <leader>j :CommandT<cr>
-    noremap <leader>y :CommandTFlush<cr>
-endif
-
 " ------------------ Ack -----------------------------
 noremap <leader>a <Esc>:Ack! <c-r>" 
 

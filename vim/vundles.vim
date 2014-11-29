@@ -39,24 +39,16 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'majutsushi/tagbar'  " require ctags
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'godlygeek/tabular'
-
-if has('ruby')
-    Plugin 'wincent/command-t'  "compile with vim ruby version
-else
-    Plugin 'kien/ctrlp.vim'
-endif
+Plugin 'plasticboy/vim-markdown'
+Plugin 'kien/ctrlp.vim'
 
 if has('python')
     Plugin 'klen/python-mode'
 endif
 
-"Plugin 'spolu/dwm.vim'
 "Plugin 'pythoncomplete'
 "Plugin 'taglist'
-"Plugin 'Lokaltog/powerline'
 "Plugin 'scrooloose/nerdcommenter'
-"Plugin 'plasticboy/vim-markdown'
-"Plugin 'godlygeek/tabular'
 
 
 " All of your Plugins must be added before the following line
