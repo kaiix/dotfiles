@@ -31,7 +31,6 @@ set nosi
 set cindent
 set nowrap
 
-set cc=80
 set clipboard+=unnamed
 set ffs=unix,dos,mac
 set list listchars=tab:»·,trail:·
@@ -41,6 +40,9 @@ set ruler
 set mouse-=a
 set showtabline=2
 set cmdheight=2
+if v:version >= 704
+    set cc=80
+endif
 
 filetype plugin on
 filetype indent on
@@ -77,6 +79,7 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.rpm,*.whl,*.tgz
 
 
 " ================ Scrolling =========================
