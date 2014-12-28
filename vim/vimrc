@@ -283,6 +283,9 @@ let g:airline_right_sep = ''
 let g:pymode_doc=0
 set completeopt-=preview
 let g:pymode_lint_cwindow=0
+let g:pymode_lint_on_write = 1
+let g:pymode_rope_goto_definition_bind = "<C-]>"
+let g:pymode_rope_goto_definition_cmd = 'e'
 
 " ---------------- ctrlp.vim -------------------------
 let g:ctrlp_map = '<leader>j'
@@ -292,12 +295,13 @@ noremap <leader>y :CtrlPClearCache<cr>
 "let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
 
 " ------------------ Ack -----------------------------
-noremap <leader>a <Esc>:Ack! <c-r>" 
+noremap <leader>ap <Esc>:Ack! <c-r>" 
 
 " ---------------- NerdTree --------------------------
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
 map <leader>nf :NERDTreeFind<cr>
+let NERDTreeIgnore = ['\.pyc$']
 
 " ---------------- LineCommenter ---------------------
 vnoremap <silent><leader><space> :call LineCommenter()<Esc>
@@ -305,9 +309,12 @@ nmap <silent><leader><space> :call LineCommenter()<Esc>
 
 " ---------------- syntastic -------------------------
 let g:syntastic_python_checkers = ['pyflakes', 'python']
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
 
 " ------------------ Tagbar -------------------------
-noremap <leader>tb :TagbarToggle<cr>
+noremap <leader>tt :TagbarToggle<cr>
 
 " ------------------ Tabular -------------------------
 if exists(":Tabularize")
