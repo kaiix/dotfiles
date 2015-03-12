@@ -1,0 +1,98 @@
+" vim: set ft=vim:
+
+
+" ================ General Config ====================
+set nocompatible
+set history=1000
+set nu
+set backspace=eol,start,indent
+set autoread
+
+" Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
+" Indent
+set expandtab       "replace tab with space
+set shiftwidth=4    "how many space for indentation
+set tabstop=4
+set smarttab         "easy when you use backspace
+set ai
+set nosi
+set cindent
+set nowrap
+
+set clipboard+=unnamed
+set ffs=unix,dos,mac
+set hidden
+set whichwrap+=<,>,h,l
+set ruler
+set mouse-=a
+set showtabline=2
+set cmdheight=2
+
+filetype plugin on
+filetype indent on
+
+let mapleader = ","
+let g:mapleader = ","
+
+nnoremap 0 ^
+
+" ================ Folds =============================
+set foldcolumn=1
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+
+" ================ Completion ========================
+set wildmode=list:longest
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore+=*.o,*.obj,.git,*.pyc,.svn,*~
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.rpm,*.whl,*.tgz
+
+
+" ================ Scrolling =========================
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+
+
+" ================ Searching =========================
+set ignorecase
+set smartcase  "precise search when input uppercase word
+set hlsearch
+set incsearch
+"Turn off highlight by ,<cr>
+map <silent> <leader>h :noh<cr>
+" Regular expressions
+set magic
+"Show matching brackets
+set showmatch
+"How many tenths of a second to blink
+set mat=2
+"set nolazyredraw "?
+set lazyredraw
+
+
+" ================ Appearance ========================
+set t_Co=256
+set term=xterm-256color
+syntax enable
+
+" file format
+set encoding=utf8
+try
+    lang en_us
+catch
+endtry

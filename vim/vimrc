@@ -268,6 +268,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " ---------------- Others ----------------------------
 au bufreadpost,filereadpost *.jad set ft=java
 au bufreadpost,filereadpost ~/.bash_aliases set ft=sh
+au bufreadpost,filereadpost *.less set ft=css
 
 
 " ==================  Plugins ========================
