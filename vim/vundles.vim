@@ -34,13 +34,13 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/neocomplcache.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'majutsushi/tagbar'  " require ctags
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'kien/ctrlp.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 if has('python')
     Plugin 'klen/python-mode'
