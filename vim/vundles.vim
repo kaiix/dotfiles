@@ -40,14 +40,12 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'kien/ctrlp.vim'
-Plugin 'Valloric/YouCompleteMe'
 
 if has('python')
     Plugin 'klen/python-mode'
+    Plugin 'Valloric/YouCompleteMe'
 endif
 
-"Plugin 'pythoncomplete'
-"Plugin 'taglist'
 "Plugin 'scrooloose/nerdcommenter'
 
 
