@@ -332,3 +332,7 @@ let g:html_indent_style1 = "inc"
 let g:html_indent_inctags = "html,body,head"
 set regexpengine=1
 let g:javascript_enable_domhtmlcss = 1
+
+" ------------------ YCM --------------------------
+let g:pymode_rope_completion = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
