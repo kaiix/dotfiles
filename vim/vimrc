@@ -177,6 +177,7 @@ iab xauthor     kaiix <kvn.hou@gmail.com>
 map <leader>cc :botright cope<cr>
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
+map <leader>ll :lopen<cr>
 
 
 " ================ Utils =============================
@@ -284,7 +285,6 @@ let g:airline_right_sep = ''
 let g:pymode_doc=0
 set completeopt-=preview
 let g:pymode_lint_cwindow=0
-"let g:pymode_lint_on_write = 1
 let g:pymode_rope_goto_definition_bind = "<C-]>"
 let g:pymode_rope_goto_definition_cmd = 'e'
 
@@ -292,8 +292,8 @@ let g:pymode_rope_goto_definition_cmd = 'e'
 let g:ctrlp_map = '<leader>j'
 let g:ctrlp_working_path_mode = 0
 noremap <leader>y :CtrlPClearCache<cr>
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
 "let g:ctrlp_max_height = 15
-"let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
 
 " ------------------ Ack -----------------------------
 noremap <leader>ap <Esc>:Ack! <c-r>" 
@@ -309,8 +309,8 @@ vnoremap <silent><leader><space> :call LineCommenter()<Esc>
 nmap <silent><leader><space> :call LineCommenter()<Esc>
 
 " ---------------- syntastic -------------------------
+let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['python'] }
 let g:syntastic_python_checkers = ['pyflakes', 'python']
-let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 
