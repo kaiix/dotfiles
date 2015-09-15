@@ -31,6 +31,8 @@ set nosi
 set cindent
 set nowrap
 
+autocmd Filetype css,html,javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
 set clipboard+=unnamed
 set ffs=unix,dos,mac
 set list listchars=tab:»·,trail:·
@@ -69,7 +71,7 @@ set nofoldenable        "dont fold by default
 " ================ Completion ========================
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore+=*.o,*.obj,.git,*.pyc,.svn,*~,.ropeproject
+set wildignore+=*.o,*.obj,.git,*.pyc,.svn,*~,.ropeproject/**
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
@@ -257,6 +259,7 @@ au FileType scheme inoremap <buffer> $l lambda
 " ---------------- Javascript ------------------------
 au FileType javascript inoremap <buffer> $r return 
 au FileType javascript inoremap <buffer> $f function
+let g:jsx_ext_required = 0
 
 " ---------------- Omin Complete ---------------------
 inoremap $$ <c-x><c-o>
@@ -287,6 +290,10 @@ set completeopt-=preview
 let g:pymode_lint_cwindow=0
 let g:pymode_rope_goto_definition_bind = "<C-]>"
 let g:pymode_rope_goto_definition_cmd = 'e'
+let g:pymode_breakpoint = 0
+let g:pymode_rope_autoimport = 0
+let g:pymode_rope = 0
+let g:pymode_lint = 0
 
 " ---------------- ctrlp.vim -------------------------
 let g:ctrlp_map = '<leader>j'
@@ -309,10 +316,11 @@ vnoremap <silent><leader><space> :call LineCommenter()<Esc>
 nmap <silent><leader><space> :call LineCommenter()<Esc>
 
 " ---------------- syntastic -------------------------
-let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['python'] }
+"let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['python'] }
 let g:syntastic_python_checkers = ['pyflakes', 'python']
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
+let g:syntastic_always_populate_loc_list = 1
 
 " ------------------ Tagbar -------------------------
 noremap <leader>b :TagbarToggle<cr>

@@ -40,6 +40,11 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'kien/ctrlp.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'othree/html5.vim'
 
 if has('python')
     Plugin 'klen/python-mode'
