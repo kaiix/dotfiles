@@ -316,10 +316,11 @@ vnoremap <silent><leader><space> :call LineCommenter()<Esc>
 nmap <silent><leader><space> :call LineCommenter()<Esc>
 
 " ---------------- syntastic -------------------------
-"let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['python'] }
-let g:syntastic_python_checkers = ['pyflakes', 'python']
+let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
+let g:syntastic_style_warning_symbol = '≈'
+let g:syntastic_style_error_symbol = '≈'
 let g:syntastic_always_populate_loc_list = 1
 
 " ------------------ Tagbar -------------------------
@@ -344,3 +345,4 @@ let g:javascript_enable_domhtmlcss = 1
 " ------------------ YCM --------------------------
 let g:pymode_rope_completion = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'

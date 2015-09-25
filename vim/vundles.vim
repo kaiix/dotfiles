@@ -47,7 +47,7 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'othree/html5.vim'
 
 if has('python')
-    Plugin 'klen/python-mode'
+"    Plugin 'klen/python-mode'
     Plugin 'Valloric/YouCompleteMe'
 endif
 
