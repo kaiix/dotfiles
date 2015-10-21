@@ -43,11 +43,12 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'othree/html5.vim'
+Plugin 'python_match.vim'
+Plugin 'luochen1990/rainbow'
 
 if has('python')
-"    Plugin 'klen/python-mode'
+    Plugin 'hynek/vim-python-pep8-indent'
     Plugin 'Valloric/YouCompleteMe'
 endif
 
