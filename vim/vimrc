@@ -59,6 +59,7 @@ set foldcolumn=1
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
+nnoremap zo zO
 
 " ================ Sounding ==========================
 "No sound on errors.
@@ -249,7 +250,11 @@ au FileType python inoremap <buffer> $c class
 au FileType python inoremap <buffer> $o object
 au FileType python inoremap <buffer> $m if __name__ == '__main__':<cr>
 au FileType python inoremap <buffer> $_ def __init__(self, 
-au FileType python inoremap <buffer> $f --- PH ----------<esc>FP2xi
+au FileType python inoremap <buffer> $f from __future__ import absolute_import
+                                        \<cr>from __future__ import unicode_literals
+                                        \<cr>from __future__ import print_function
+                                        \<cr>from __future__ import division
+                                        \<cr>
  
 " ---------------- Scheme ----------------------------
 au FileType scheme syn keyword schemeFunc error
@@ -274,8 +279,13 @@ au bufreadpost,filereadpost *.jad set ft=java
 au bufreadpost,filereadpost ~/.bash_aliases set ft=sh
 au bufreadpost,filereadpost *.less set ft=css
 
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window ".expand("%"))
 
-" ==================  Plugins ========================
+" Close Omni-Cmopletion tip window when a selection is made
+autocmd CompleteDone * pclose
+
+
+" ====================  Plugins =====================
 
 " ------------------ airline -------------------------
 set laststatus=2
@@ -300,34 +310,43 @@ let g:pymode_rope_completion = 0
 let g:ctrlp_map = '<leader>j'
 let g:ctrlp_working_path_mode = 0
 noremap <leader>y :CtrlPClearCache<cr>
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.svn'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|venv)|(\.(DS_Store|git|svn))$'
+
 "let g:ctrlp_max_height = 15
 
 " ------------------ Ack -----------------------------
-noremap <leader>ap <Esc>:Ack! <c-r>" 
+let g:ackprg = 'ag --nogroup --nocolor --column'
+nnoremap <Leader>a :LAck!<Space>
 
 " ---------------- NerdTree --------------------------
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
 map <leader>nf :NERDTreeFind<cr>
 let NERDTreeIgnore = ['\.pyc$']
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=0
+let g:NERDTreeWinSize=35
+let NERDTreeShowBookmarks=1
 
-" ---------------- LineCommenter ---------------------
-vnoremap <silent><leader><space> :call LineCommenter()<Esc>
-nmap <silent><leader><space> :call LineCommenter()<Esc>
+" ---------------- nerdcommenter ---------------------
+let NERDCreateDefaultMappings = 0
+nmap <silent><leader><space> <plug>NERDCommenterToggle
+vmap <silent><leader><space> <plug>NERDCommenterToggle
 
 " ---------------- syntastic -------------------------
 let g:syntastic_python_checkers = ['flake8']
+"let g:syntastic_python_flake8_exec = '/usr/local/bin/python3'
+"let g:syntastic_python_flake8_args = ['--ignore=W0401']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 let g:syntastic_style_warning_symbol = '≈'
 let g:syntastic_style_error_symbol = '≈'
 let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_python_flake8_args='--ignore=E701'  " one line
 
 " ------------------ Tagbar -------------------------
-noremap <leader>b :TagbarToggle<cr>
-noremap <leader>. :CtrlPTag<cr>
+noremap <leader>tt :TagbarToggle<cr>
+"noremap <leader>. :CtrlPTag<cr>
 
 " ------------------ Tabular -------------------------
 if exists(":Tabularize")
@@ -345,7 +364,72 @@ set regexpengine=1
 let g:javascript_enable_domhtmlcss = 1
 
 " ------------------ YCM --------------------------
-let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 0  " slow
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_cache_omnifunc = 1
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_min_num_identifier_candidate_chars = 3
 autocmd FileType python nnoremap <buffer> <silent> <C-]> :YcmCompleter GoTo<cr>
+
+" ------------------ Gundo ------------------------
+nmap <leader>gg :GundoToggle<CR>
+let g:gundo_preview_bottom = 1
+
+" ---------------- accelerated-jk ---------------------
+if isdirectory($HOME . "/.vim/bundle/accelerated-jk")
+    nmap j <Plug>(accelerated_jk_gj)
+    nmap k <Plug>(accelerated_jk_gk)
+endif
+let g:accelerated_jk_acceleration_limit = 200
+let g:accelerated_jk_acceleration_table = [10, 20, 30, 35, 40, 45, 50]
+
+" --------------- Highlighting ---------------
+let g:indentLine_enabled = 0
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#A4E57E'
+nnoremap <leader>ii :IndentLinesToggle<CR>:set list! lcs=tab:\\|\<Space><CR>
+
+let g:rbpt_max = 16
+au Syntax * silent! RainbowParenthesesLoadRound
+au Syntax * silent! RainbowParenthesesLoadSquare
+nnoremap <leader>rr :RainbowParenthesesToggle<cr>
+"let g:rbpt_loadcmd_toggle = 0
+"au VimEnter * silent! RainbowParenthesesToggle
+
+" --------------- bufExplorer ---------------
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerShowRelativePath=1
+let g:bufExplorerFindActive=1
+let g:bufExplorerSortBy='name'
+map <leader>o :BufExplorer<cr>
+
+" --------------- vim-codefmt ---------------
+map <leader>ff :FormatCode<cr>
+
+" --------------- fugitive ---------------
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+"nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gl :!tig<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+"nnoremap <silent> <leader>gr :Gread<CR>
+"nnoremap <silent> <leader>gw :Gwrite<CR>
+"nnoremap <silent> <leader>ge :Gedit<CR>
+" Mnemonic _i_nteractive
+nnoremap <silent> <leader>gi :Git add -p %<CR>
+
+" --------------- UltiSnips ---------------
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips/', 'UltiSnips']
+let g:UltiSnipsEditSplit = 'horizontal'
+
+" change 2 spaces indentation to 4 spaces indentation
+":set ts=2 sts=2 noet
+":retab!
+":set ts=4 sts=4 et
+":retab

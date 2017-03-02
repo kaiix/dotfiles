@@ -29,9 +29,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'mileszs/ack.vim'
-Plugin 'LineCommenter'
 Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'pangloss/vim-javascript'
@@ -39,20 +39,34 @@ Plugin 'majutsushi/tagbar'  " require ctags
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mxw/vim-jsx'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'othree/html5.vim'
 Plugin 'python_match.vim'
-Plugin 'luochen1990/rainbow'
 
-if has('python')
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+
+Plugin 'Yggdroot/indentLine'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'searchfold.vim'
+Plugin 'LargeFile'
+Plugin 'sjl/gundo.vim'
+Plugin 'rhysd/accelerated-jk'
+"Plugin 'qstrahl/vim-matchmaker'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'bufexplorer.zip'
+" plantuml
+Plugin 'scrooloose/vim-slumlord'
+Plugin 'aklt/plantuml-syntax'
+Plugin 'SirVer/ultisnips'
+
+if has('python') || has('python3')
     Plugin 'hynek/vim-python-pep8-indent'
     Plugin 'Valloric/YouCompleteMe'
 endif
-
-"Plugin 'scrooloose/nerdcommenter'
 
 
 " All of your Plugins must be added before the following line
@@ -69,3 +83,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+
+call glaive#Install()
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
