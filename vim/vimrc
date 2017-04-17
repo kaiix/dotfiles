@@ -83,6 +83,7 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*.rpm,*.whl,*.tgz
+set wildignore+=venv/**
 
 
 " ================ Scrolling =========================
@@ -169,11 +170,11 @@ nnoremap g$ :tablast<cr>
 
 
 " ================ Abbrevs ===========================
-"My information
-iab xpython     #!/usr/bin/env python
+iab xbin        #!/usr/bin/env python
 iab xutf8       # -*- coding: utf-8 -*-
 iab xdate       <c-r>=strftime("%y%m%d")<cr>
 iab xauthor     kaiix <kvn.hou@gmail.com>
+iab xslim       # vim: set et ts=2 sw=2 sts=2 :
 
 
 " ================ Cope ==============================
@@ -409,6 +410,8 @@ map <leader>o :BufExplorer<cr>
 
 " --------------- vim-codefmt ---------------
 map <leader>ff :FormatCode<cr>
+vnoremap <leader>fl :FormatLines<cr>
+nnoremap <leader>fl :FormatLines<cr>
 
 " --------------- fugitive ---------------
 nnoremap <silent> <leader>gs :Gstatus<CR>
