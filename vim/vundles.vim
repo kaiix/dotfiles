@@ -46,8 +46,8 @@ Plugin 'othree/html5.vim'
 Plugin 'python_match.vim'
 
 Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
+Plugin 'google/vim-codefmt'
 
 Plugin 'Yggdroot/indentLine'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -57,14 +57,17 @@ Plugin 'sjl/gundo.vim'
 Plugin 'rhysd/accelerated-jk'
 "Plugin 'qstrahl/vim-matchmaker'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'bufexplorer.zip'
+Plugin 'jlanzarotta/bufexplorer'
 " plantuml
 Plugin 'scrooloose/vim-slumlord'
 Plugin 'aklt/plantuml-syntax'
 Plugin 'SirVer/ultisnips'
+Plugin 'avakhov/vim-yaml'
+Plugin 'tweekmonster/braceless.vim'
+Plugin 'Vimjas/vim-python-pep8-indent'
+"Plugin 'airblade/vim-gitgutter'
 
 if has('python') || has('python3')
-    Plugin 'hynek/vim-python-pep8-indent'
     Plugin 'Valloric/YouCompleteMe'
 endif
 

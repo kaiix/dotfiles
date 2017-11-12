@@ -179,9 +179,11 @@ iab xslim       # vim: set et ts=2 sw=2 sts=2 :
 
 " ================ Cope ==============================
 map <leader>cc :botright cope<cr>
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
+map <leader>cn :cn<cr>
+map <leader>cp :cp<cr>
 map <leader>ll :lopen<cr>
+map <leader>ln :lnext<cr>
+map <leader>lp :lp<cr>
 
 
 " ================ Utils =============================
@@ -374,6 +376,7 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_cache_omnifunc = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_min_num_identifier_candidate_chars = 3
+let g:ycm_use_ultisnips_completer = 1
 autocmd FileType python nnoremap <buffer> <silent> <C-]> :YcmCompleter GoTo<cr>
 
 " ------------------ Gundo ------------------------
@@ -397,7 +400,7 @@ nnoremap <leader>ii :IndentLinesToggle<CR>:set list! lcs=tab:\\|\<Space><CR>
 let g:rbpt_max = 16
 au Syntax * silent! RainbowParenthesesLoadRound
 au Syntax * silent! RainbowParenthesesLoadSquare
-nnoremap <leader>rr :RainbowParenthesesToggle<cr>
+nnoremap <leader>bb :RainbowParenthesesToggle<cr>
 "let g:rbpt_loadcmd_toggle = 0
 "au VimEnter * silent! RainbowParenthesesToggle
 
@@ -412,6 +415,7 @@ map <leader>o :BufExplorer<cr>
 map <leader>ff :FormatCode<cr>
 vnoremap <leader>fl :FormatLines<cr>
 nnoremap <leader>fl :FormatLines<cr>
+autocmd FileType python let b:codefmt_formatter = 'yapf'
 
 " --------------- fugitive ---------------
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -430,6 +434,11 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 " --------------- UltiSnips ---------------
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips/', 'UltiSnips']
 let g:UltiSnipsEditSplit = 'horizontal'
+let g:UltiSnipsExpandTrigger = '<c-l>'
+
+" --------------- Braceless ---------------
+"autocmd FileType python,haml,yaml BracelessEnable +indent +fold +highlight
+autocmd FileType python BracelessEnable +indent +fold
 
 " change 2 spaces indentation to 4 spaces indentation
 ":set ts=2 sts=2 noet
