@@ -77,3 +77,112 @@ def check_type(value, expected_type):
                         (expected_type.__name__, type(value).__name__))
 
 endsnippet
+
+
+snippet pdb
+import pdb; pdb.set_trace()
+endsnippet
+
+
+snippet skip
+@pytest.mark.skip
+endsnippet
+
+snippet requests_log
+from http.client import HTTPConnection
+HTTPConnection.debuglevel = 1
+logging.basicConfig()
+logging.getLogger().setLevel(logging.DEBUG)
+requests_log = logging.getLogger("urllib3")
+requests_log.setLevel(logging.DEBUG)
+requests_log.propagate = True
+endsnippet
+
+snippet declare_namespace
+try:
+    import pkg_resources
+    pkg_resources.declare_namespace(__name__)
+except ImportError:
+    import pkgutil
+    __path__ = pkgutil.extend_path(__path__, __name__)
+endsnippet
+
+snippet yapf
+# yapf:disable
+endsnippet
+
+snippet prof
+def profprint(func):
+    import functools
+    import cProfile, pstats, io
+    @functools.wraps(func)
+    def wrapper(*a, **kw):
+        pr = cProfile.Profile()
+        pr.enable()
+        rv = func(*a, **kw)
+        pr.disable()
+        s = io.StringIO()
+        ps = pstats.Stats(pr, stream=s).sort_stats('cumtime')
+        ps.print_stats(20)
+        print(s.getvalue())
+        return rv
+    return wrapper
+endsnippet
+
+
+snippet memprof
+def memprofprint(func):
+    import functools
+    import tracemalloc
+    @functools.wraps(func)
+    def wrapper(*a, **kw):
+        tracemalloc.start()
+        rv = func(*a, **kw)
+        snapshot = tracemalloc.take_snapshot()
+        top_stats = snapshot.statistics('lineno')
+        print("[ Top 10 ]")
+        for stat in top_stats[:10]:
+            print(stat, flush=True)
+        return rv
+    return wrapper
+endsnippet
+
+snippet lineprof
+def lineprof(func):
+    import linecache
+    import os
+    import tracemalloc
+    
+    def display_top(snapshot, key_type='lineno', limit=10):
+        snapshot = snapshot.filter_traces((
+            tracemalloc.Filter(False, "<frozen importlib._bootstrap>"),
+            tracemalloc.Filter(False, "<unknown>"),
+        ))
+        top_stats = snapshot.statistics(key_type)
+    
+        print("Top %s lines" % limit)
+        for index, stat in enumerate(top_stats[:limit], 1):
+            frame = stat.traceback[0]
+            # replace "/path/to/module/file.py" with "module/file.py"
+            filename = os.sep.join(frame.filename.split(os.sep)[-2:])
+            print("#%s: %s:%s: %.1f KiB"
+                  % (index, filename, frame.lineno, stat.size / 1024))
+            line = linecache.getline(frame.filename, frame.lineno).strip()
+            if line:
+                print('    %s' % line)
+    
+        other = top_stats[limit:]
+        if other:
+            size = sum(stat.size for stat in other)
+            print("%s other: %.1f KiB" % (len(other), size / 1024))
+        total = sum(stat.size for stat in top_stats)
+        print("Total allocated size: %.1f KiB" % (total / 1024))
+    
+    def wrapper(*a, **kw):
+        tracemalloc.start()
+        rv = func(*a, **kw)
+        snapshot = tracemalloc.take_snapshot()
+        display_top(snapshot)
+        return rv
+    return wrapper
+endsnippet
