@@ -8,6 +8,10 @@ ts.setup({
 		enable = true,
 		disable = {},
 	},
+    -- indent = {
+    --     enable = true,
+    --     disable = {},
+    -- },
 	ensure_installed = {
 		"lua",
 		"python",

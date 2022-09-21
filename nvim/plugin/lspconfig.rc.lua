@@ -3,6 +3,35 @@ if not ok then
 	return
 end
 
+local util = require("lspconfig/util")
+local path = util.path
+
+local on_attach = function(client, bufnr)
+	local function buf_set_keymap(...)
+		vim.api.nvim_buf_set_keymap(bufnr, ...)
+	end
+
+	local function buf_set_option(...)
+		vim.api.nvim_buf_set_option(bufnr, ...)
+	end
+
+	-- Enable completion triggered by <c-x><c-o>
+	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+	-- Mappings.
+	local opts = { noremap = true, silent = true }
+
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	buf_set_keymap("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
+end
+
+-- Set up completion using nvim_cmp with LSP source
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 nvim_lsp.sumneko_lua.setup({
 	settings = {
 		Lua = {
@@ -15,10 +44,9 @@ nvim_lsp.sumneko_lua.setup({
 			},
 		},
 	},
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
-
-local util = require("lspconfig/util")
-local path = util.path
 
 local get_python_path = function(workspace)
 	-- Use activated virtualenv.
@@ -38,38 +66,24 @@ local get_python_path = function(workspace)
 	return exepath("python3") or exepath("python") or "python"
 end
 
-local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
-	-- Enable completion triggered by <c-x><c-o>
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- Mappings.
-	local opts = { noremap = true, silent = true }
-
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-end
-
 nvim_lsp.pyright.setup({
 	before_init = function(_, config)
 		config.settings.python.pythonPath = get_python_path(config.root_dir)
 	end,
 	on_attach = on_attach,
 	flags = { debounce_text_changes = 150 },
+	capabilities = capabilities,
 })
 
-nvim_lsp.solc.setup({})
+nvim_lsp.solidity_ls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
+nvim_lsp.tsserver.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 nvim_lsp.gopls.setup({
 	cmd = { "gopls", "serve" },
@@ -83,6 +97,7 @@ nvim_lsp.gopls.setup({
 			staticcheck = true,
 		},
 	},
+	capabilities = capabilities,
 })
 
 -- Configure LSP through rust-tools.nvim plugin.
@@ -116,4 +131,6 @@ require("rust-tools").setup({
 			},
 		},
 	},
+
+	capabilities = capabilities,
 })

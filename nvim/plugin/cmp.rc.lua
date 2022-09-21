@@ -20,7 +20,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
+			select = false,
 		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -42,6 +42,20 @@ cmp.setup({
 		{ name = "copilot" },
 		{ name = "ultisnips" },
 		{ name = "buffer" },
+		{ name = "path" },
+	}),
+})
+
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
 		{ name = "path" },
 		{ name = "cmdline" },
 	}),

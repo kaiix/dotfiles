@@ -28,6 +28,7 @@ vim.keymap.set("v", "<Space>", "}", { noremap = true })
 
 vim.keymap.set("n", "g0", ":tabfirst<cr>", { noremap = true, silent = true })
 vim.keymap.set("n", "g$", ":tablast<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "gd", "[<C-i>", { noremap= true })
 
 -- Cope
 vim.keymap.set("", "<leader>cc", ":botright cope<cr>", { noremap = true, silent = true })
@@ -45,6 +46,10 @@ vim.keymap.set("n", "<leader>so", ":source %<cr>", { noremap = true })
 vim.keymap.set("n", "<leader>sz", ":source ~/.config/nvim/init.lua<cr>", { noremap = true })
 
 -- Formatting
-vim.keymap.set("n", "<leader>ff", function()
-	vim.lsp.buf.format()
-end, { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>ff", function()
+--     vim.lsp.buf.format()
+-- end, { noremap = true, silent = true })
+
+vim.cmd([[au FileType python inoremap <buffer> $m if __name__ == '__main__':<cr>]])
+
+vim.cmd([[autocmd FileType python map <leader>fi :Autoflake --remove-all-unused-imports<cr>]])

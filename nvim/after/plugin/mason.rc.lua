@@ -10,5 +10,10 @@ end
 mason.setup({})
 
 lspconfig.setup({
-	ensure_installed = { "sumneko_lua", "pyright", "rust_analyzer" },
+	ensure_installed = {
+		"sumneko_lua",
+		"pyright",
+		"rust_analyzer",
+		"tsserver",
+	},
 })

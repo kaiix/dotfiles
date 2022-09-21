@@ -41,6 +41,7 @@ vim.opt.smarttab = true -- default on
 vim.opt.autoindent = true -- default on
 vim.opt.smartindent = true -- default false
 vim.opt.wrap = false
+vim.cmd([[autocmd FileType javascript,javascriptreact,typescript setlocal shiftwidth=2 softtabstop=2 expandtab]])
 
 -- scrolling
 vim.opt.scrolloff = 8
