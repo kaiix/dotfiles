@@ -20,17 +20,36 @@ local on_attach = function(client, bufnr)
 
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
-
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	buf_set_keymap("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
+
+    -- TODO: PR autoimports to null-ls
+	if client.name ~= "pyright" then
+		buf_set_keymap(
+			"n",
+			"<leader>fi",
+			[[<cmd>lua vim.lsp.buf.code_action({context={only={"source.organizeImports"}}, apply=true})<CR>]],
+			opts
+		)
+	end
 end
 
 -- Set up completion using nvim_cmp with LSP source
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.codeAction = {
+	dynamicRegistration = false,
+	codeActionLiteralSupport = {
+		codeActionKind = {
+			valueSet = {
+				"source.organizeImports",
+			},
+		},
+	},
+}
 
 nvim_lsp.sumneko_lua.setup({
 	settings = {
@@ -81,6 +100,11 @@ nvim_lsp.solidity_ls.setup({
 })
 
 nvim_lsp.tsserver.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
+nvim_lsp.yamlls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })

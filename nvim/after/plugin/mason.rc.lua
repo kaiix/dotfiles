@@ -15,5 +15,6 @@ lspconfig.setup({
 		"pyright",
 		"rust_analyzer",
 		"tsserver",
+		"yamlls",
 	},
 })

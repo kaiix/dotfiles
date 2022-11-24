@@ -41,8 +41,6 @@ packer.startup(function(use)
 	use("ray-x/go.nvim")
 	use("scrooloose/nerdtree")
 	use("tpope/vim-fugitive")
-	-- use("vim-airline/vim-airline")
-	-- use("vim-airline/vim-airline-themes")
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = {
@@ -51,7 +49,6 @@ packer.startup(function(use)
 		},
 	})
 	use("terryma/vim-multiple-cursors")
-	use("scrooloose/syntastic")
 	use("majutsushi/tagbar") -- require ctags
 	use("edkolev/tmuxline.vim")
 	use("plasticboy/vim-markdown")
@@ -73,11 +70,7 @@ packer.startup(function(use)
 	use("tweekmonster/braceless.vim")
 	use("Vimjas/vim-python-pep8-indent")
 	use("airblade/vim-gitgutter")
-	-- use("fisadev/vim-isort")
 	use("tpope/vim-rhubarb")
-	-- use telescope instead
-	-- use("mhinz/vim-grepper")
-	use("mtscout6/syntastic-local-eslint.vim")
 	use("hashivim/vim-terraform")
 	use("udalov/kotlin-vim")
 	use("pearofducks/ansible-vim")
@@ -127,9 +120,10 @@ packer.startup(function(use)
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("rhysd/git-messenger.vim")
+	use("kyazdani42/nvim-web-devicons")
 	use({
 		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 	use("gpanders/editorconfig.nvim")
 end)
