@@ -1,4 +1,5 @@
-vim.g.ctrlp_map = "<leader>j"
+-- use telescope instead of ctrlp
+-- vim.g.ctrlp_map = "<leader>j"
 vim.g.ctrlp_working_path_mode = 0
 vim.g.ctrlp_custom_ignore = [[\v[\/](node_modules|venv)|(\.(DS_Store|git|svn))$]]
 

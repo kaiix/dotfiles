@@ -14,5 +14,7 @@ prettier.setup({
 		"json",
 		"scss",
 		"less",
+		"solidity",
+        "yaml",
 	},
 })

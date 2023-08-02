@@ -11,10 +11,12 @@ mason.setup({})
 
 lspconfig.setup({
 	ensure_installed = {
-		"sumneko_lua",
+		"lua_ls",
 		"pyright",
 		"rust_analyzer",
 		"tsserver",
 		"yamlls",
+		"solidity_ls_nomicfoundation",
+        "taplo",
 	},
 })

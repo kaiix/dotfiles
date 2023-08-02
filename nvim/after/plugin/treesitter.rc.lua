@@ -8,10 +8,10 @@ ts.setup({
 		enable = true,
 		disable = {},
 	},
-    -- indent = {
-    --     enable = true,
-    --     disable = {},
-    -- },
+	-- indent = {
+	--     enable = true,
+	--     disable = {},
+	-- },
 	ensure_installed = {
 		"lua",
 		"python",
@@ -22,6 +22,7 @@ ts.setup({
 		"vim",
 		"css",
 		"html",
+		"solidity",
 	},
 	autotag = {
 		enable = true,

@@ -27,7 +27,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
 
-    -- TODO: PR autoimports to null-ls
+	-- TODO: PR autoimports to null-ls
 	if client.name ~= "pyright" then
 		buf_set_keymap(
 			"n",
@@ -51,7 +51,7 @@ capabilities.textDocument.codeAction = {
 	},
 }
 
-nvim_lsp.sumneko_lua.setup({
+nvim_lsp.lua_ls.setup({
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -82,7 +82,7 @@ local get_python_path = function(workspace)
 	end
 
 	-- Fallback to system Python.
-	return exepath("python3") or exepath("python") or "python"
+	return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
 end
 
 nvim_lsp.pyright.setup({
@@ -94,13 +94,24 @@ nvim_lsp.pyright.setup({
 	capabilities = capabilities,
 })
 
-nvim_lsp.solidity_ls.setup({
-	on_attach = on_attach,
+-- https://www.npmjs.com/package/@ignored/solidity-language-server
+nvim_lsp.solidity.setup({
+	on_attach = function(client, bufnr)
+		on_attach(client, bufnr)
+		client.server_capabilities.documentFormattingProvider = false
+	end,
 	capabilities = capabilities,
+	cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
+	filetypes = { "solidity" },
+	root_dir = util.root_pattern("hardhat.config.*", ".git"),
+	single_file_support = true,
 })
 
 nvim_lsp.tsserver.setup({
-	on_attach = on_attach,
+	on_attach = function(client, bufnr)
+		on_attach(client, bufnr)
+		client.server_capabilities.documentFormattingProvider = false
+	end,
 	capabilities = capabilities,
 })
 
@@ -121,40 +132,31 @@ nvim_lsp.gopls.setup({
 			staticcheck = true,
 		},
 	},
+	on_attach = on_attach,
 	capabilities = capabilities,
 })
 
--- Configure LSP through rust-tools.nvim plugin.
--- rust-tools will configure and enable certain LSP features for us.
--- See https://github.com/simrat39/rust-tools.nvim#configuration
-require("rust-tools").setup({
-	tools = { -- rust-tools options
-		autoSetHints = true,
-		-- hover_with_actions = true,
-		inlay_hints = {
-			show_parameter_hints = false,
-			parameter_hints_prefix = "",
-			other_hints_prefix = "",
-		},
-	},
-
-	-- all the opts to send to nvim-lspconfig
-	-- these override the defaults set by rust-tools.nvim
-	-- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
-	server = {
-		-- on_attach is a callback called when the language server attachs to the buffer
-		-- on_attach = on_attach,
-		settings = {
-			-- to enable rust-analyzer settings visit:
-			-- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-			["rust-analyzer"] = {
-				-- enable clippy on save
-				checkOnSave = {
-					command = "clippy",
+nvim_lsp.rust_analyzer.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = {
+		["rust-analyzer"] = {
+			imports = {
+				granularity = {
+					group = "module",
 				},
+				prefix = "self",
+			},
+			cargo = {
+				buildScripts = {
+					enable = true,
+				},
+			},
+			procMacro = {
+				enable = true,
 			},
 		},
 	},
-
-	capabilities = capabilities,
 })
+
+nvim_lsp.taplo.setup({ on_attach = on_attach, capabilities = capabilities })

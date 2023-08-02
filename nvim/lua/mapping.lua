@@ -55,3 +55,6 @@ vim.cmd([[au FileType python inoremap <buffer> $_ def __init__(self, ]])
 vim.cmd([[au FileType python inoremap <buffer> $i import]])
 
 vim.cmd([[autocmd FileType python map <leader>fi :Autoflake --remove-all-unused-imports<cr>]])
+
+-- Diagnose
+vim.keymap.set("n", "gl", [[<cmd>lua vim.diagnostic.open_float(0, {scope = "line"})<CR>]])

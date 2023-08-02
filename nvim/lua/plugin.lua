@@ -40,7 +40,6 @@ packer.startup(function(use)
 	use("fabi1cazenave/termopen.vim")
 	use("ray-x/go.nvim")
 	use("scrooloose/nerdtree")
-	use("tpope/vim-fugitive")
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = {
@@ -58,7 +57,7 @@ packer.startup(function(use)
 	use("tenfyzhong/autoflake.vim")
 	use("joshdick/onedark.vim")
 	use("cocopon/iceberg.vim")
-	use({ "psf/black", branch = "main" })
+	use("psf/black")
 	use("Yggdroot/indentLine")
 	use("kien/rainbow_parentheses.vim")
 	use("rhysd/accelerated-jk")
@@ -69,12 +68,10 @@ packer.startup(function(use)
 	use("avakhov/vim-yaml")
 	use("tweekmonster/braceless.vim")
 	use("Vimjas/vim-python-pep8-indent")
-	use("airblade/vim-gitgutter")
 	use("tpope/vim-rhubarb")
 	use("hashivim/vim-terraform")
 	use("udalov/kotlin-vim")
 	use("pearofducks/ansible-vim")
-	use("rust-lang/rust.vim")
 	use("nathangrigg/vim-beancount")
 	use("jmcantrell/vim-virtualenv")
 
@@ -95,7 +92,6 @@ packer.startup(function(use)
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-copilot",
 			"quangnguyen30192/cmp-nvim-ultisnips",
 			"folke/lua-dev.nvim",
 		},
@@ -112,18 +108,64 @@ packer.startup(function(use)
 		"nvim-telescope/telescope-fzf-native.nvim",
 		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 	})
-	use("github/copilot.vim")
-	use("simrat39/rust-tools.nvim")
+	use("nvim-telescope/telescope-file-browser.nvim")
+	use({
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	})
+	use({
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	})
 	use("mfussenegger/nvim-dap")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("MunifTanjim/prettier.nvim")
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
+	use("tpope/vim-fugitive")
 	use("rhysd/git-messenger.vim")
-	use("kyazdani42/nvim-web-devicons")
+	use({
+		"TimUntersberger/neogit",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("neogit").setup()
+		end,
+	})
+	-- use("kyazdani42/nvim-web-devicons") -- alacritty
 	use({
 		"folke/trouble.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
-	use("gpanders/editorconfig.nvim")
+	use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+	use({
+		"danymat/neogen",
+		config = function()
+			require("neogen").setup({})
+		end,
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({
+				signs = false,
+			})
+		end,
+	})
+	use({
+		"numToStr/Navigator.nvim",
+	})
+	-- https://github.com/neovim/neovim/pull/21633
+	-- use("gpanders/editorconfig.nvim")
 end)
