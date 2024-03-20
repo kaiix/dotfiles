@@ -26,15 +26,16 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
+	buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	buf_set_keymap(
+		"n",
+		"<leader>fi",
+		[[<cmd>lua vim.lsp.buf.code_action({context={only={"source.organizeImports"}}, apply=true})<CR>]],
+		opts
+	)
 
-	-- TODO: PR autoimports to null-ls
-	if client.name ~= "pyright" then
-		buf_set_keymap(
-			"n",
-			"<leader>fi",
-			[[<cmd>lua vim.lsp.buf.code_action({context={only={"source.organizeImports"}}, apply=true})<CR>]],
-			opts
-		)
+	if client.supports_method("textDocument/inlayHint") then
+		vim.lsp.inlay_hint(bufnr, true)
 	end
 end
 
@@ -94,6 +95,15 @@ nvim_lsp.pyright.setup({
 	capabilities = capabilities,
 })
 
+nvim_lsp.ruff_lsp.setup({
+	before_init = function(_, config)
+		config.settings.python.pythonPath = get_python_path(config.root_dir)
+	end,
+	on_attach = on_attach,
+	flags = { debounce_text_changes = 150 },
+	capabilities = capabilities,
+})
+
 -- https://www.npmjs.com/package/@ignored/solidity-language-server
 nvim_lsp.solidity.setup({
 	on_attach = function(client, bufnr)
@@ -107,12 +117,39 @@ nvim_lsp.solidity.setup({
 	single_file_support = true,
 })
 
+local function organize_imports()
+	local params = {
+		command = "_typescript.organizeImports",
+		arguments = { vim.api.nvim_buf_get_name(0) },
+		title = "",
+	}
+	vim.lsp.buf.execute_command(params)
+end
+
+local function disable_formatting(client)
+	client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentRangeFormattingProvider = false
+end
+
 nvim_lsp.tsserver.setup({
 	on_attach = function(client, bufnr)
 		on_attach(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = false
+		-- disable_formatting(client) -- use prettier
+		vim.api.nvim_buf_set_keymap(
+			bufnr,
+			"n",
+			"<leader>fi",
+			[[<cmd>TypescriptOrganizeImports<CR>]],
+			{ noremap = true, silent = true }
+		)
 	end,
 	capabilities = capabilities,
+	commands = {
+		TypescriptOrganizeImports = {
+			organize_imports,
+			description = "Organize Imports",
+		},
+	},
 })
 
 nvim_lsp.yamlls.setup({
@@ -160,3 +197,4 @@ nvim_lsp.rust_analyzer.setup({
 })
 
 nvim_lsp.taplo.setup({ on_attach = on_attach, capabilities = capabilities })
+nvim_lsp.typos_lsp.setup({})

@@ -1,6 +1,10 @@
-vim.keymap.set("", "<leader>nn", ":NERDTreeToggle<cr>")
-vim.keymap.set("", "<leader>nb", ":NERDTreeFromBookmark<cr>")
-vim.keymap.set("", "<leader>nf", ":NERDTreeFind<cr>")
+vim.keymap.set("", "<leader>nf", function()
+    if vim.fn.empty(vim.fn.expand("%:t")) == 1 then
+        vim.cmd("NERDTreeToggle")
+    else
+        vim.cmd("NERDTreeFind")
+    end
+end)
 
 vim.g.NERDTreeIgnore = { "\\.pyc$" }
 vim.g.NERDTreeWinPos = "right"

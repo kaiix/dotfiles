@@ -35,7 +35,7 @@ packer.startup(function(use)
 		},
 	})
 	use("folke/tokyonight.nvim")
-	use("EdenEast/nightfox.nvim")
+	use("projekt0n/github-nvim-theme")
 	use("lewis6991/impatient.nvim")
 	use("fabi1cazenave/termopen.vim")
 	use("ray-x/go.nvim")
@@ -47,16 +47,12 @@ packer.startup(function(use)
 			opt = true,
 		},
 	})
-	use("terryma/vim-multiple-cursors")
+	use("mg979/vim-visual-multi") -- use("terryma/vim-multiple-cursors")
 	use("majutsushi/tagbar") -- require ctags
-	use("edkolev/tmuxline.vim")
 	use("plasticboy/vim-markdown")
-	use("ctrlpvim/ctrlp.vim")
 	use("tpope/vim-surround")
 	use("tpope/vim-repeat")
 	use("tenfyzhong/autoflake.vim")
-	use("joshdick/onedark.vim")
-	use("cocopon/iceberg.vim")
 	use("psf/black")
 	use("Yggdroot/indentLine")
 	use("kien/rainbow_parentheses.vim")
@@ -84,6 +80,7 @@ packer.startup(function(use)
 			"nvim-treesitter/playground",
 		},
 	})
+	-- use("nvim-treesitter/nvim-treesitter-context")
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
@@ -96,6 +93,7 @@ packer.startup(function(use)
 			"folke/lua-dev.nvim",
 		},
 	})
+	-- use("ctrlpvim/ctrlp.vim")
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = {
@@ -117,6 +115,9 @@ packer.startup(function(use)
 			require("copilot").setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
+				filetypes = {
+					solidity = true,
+				},
 			})
 		end,
 	})
@@ -128,20 +129,16 @@ packer.startup(function(use)
 		end,
 	})
 	use("mfussenegger/nvim-dap")
-	use("jose-elias-alvarez/null-ls.nvim")
+	use({
+		"nvimtools/none-ls.nvim",
+		requires = { "nvimtools/none-ls-extras.nvim" },
+	})
+	-- use("jose-elias-alvarez/typescript.nvim")
 	use("MunifTanjim/prettier.nvim")
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("tpope/vim-fugitive")
 	use("rhysd/git-messenger.vim")
-	use({
-		"TimUntersberger/neogit",
-		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("neogit").setup()
-		end,
-	})
-	-- use("kyazdani42/nvim-web-devicons") -- alacritty
 	use({
 		"folke/trouble.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -165,6 +162,15 @@ packer.startup(function(use)
 	})
 	use({
 		"numToStr/Navigator.nvim",
+	})
+	use({
+		"jellydn/CopilotChat.nvim",
+		config = function()
+			require("CopilotChat").setup({
+				mode = "split",
+			})
+			vim.keymap.set("n", "<leader>gg", ":CopilotChat ", { noremap = true })
+		end,
 	})
 	-- https://github.com/neovim/neovim/pull/21633
 	-- use("gpanders/editorconfig.nvim")

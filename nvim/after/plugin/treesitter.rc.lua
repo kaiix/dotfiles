@@ -23,6 +23,8 @@ ts.setup({
 		"css",
 		"html",
 		"solidity",
+		"typescript",
+		"javascript",
 	},
 	autotag = {
 		enable = true,

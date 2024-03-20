@@ -2,6 +2,7 @@ local ok, mason = pcall(require, "mason")
 if not ok then
 	return
 end
+
 local ok, lspconfig = pcall(require, "mason-lspconfig")
 if not ok then
 	return
@@ -17,6 +18,8 @@ lspconfig.setup({
 		"tsserver",
 		"yamlls",
 		"solidity_ls_nomicfoundation",
-        "taplo",
+		"taplo",
+		"typos_lsp",
+		"ruff_lsp",
 	},
 })

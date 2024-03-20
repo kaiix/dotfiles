@@ -4,7 +4,6 @@ if not ok then
 end
 
 prettier.setup({
-	bin = "prettierd",
 	filetypes = {
 		"css",
 		"javascript",
@@ -12,6 +11,7 @@ prettier.setup({
 		"typescript",
 		"typescriptreact",
 		"json",
+		"jsonc",
 		"scss",
 		"less",
 		"solidity",

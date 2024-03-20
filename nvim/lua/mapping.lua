@@ -58,3 +58,6 @@ vim.cmd([[autocmd FileType python map <leader>fi :Autoflake --remove-all-unused-
 
 -- Diagnose
 vim.keymap.set("n", "gl", [[<cmd>lua vim.diagnostic.open_float(0, {scope = "line"})<CR>]])
+
+-- Text
+vim.cmd[[command! -nargs=* Wrap set wrap linebreak nolist]]
