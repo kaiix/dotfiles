@@ -6,6 +6,7 @@ keymap.set("n", "-", "<C-x>")
 -- Moving
 vim.keymap.set("", "<leader>hs", ":split<cr>", { noremap = true, silent = true })
 vim.keymap.set("", "<leader>vs", ":vsplit<cr>", { noremap = true, silent = true })
+vim.keymap.set("", "<leader>vv", "<C-w>=", { noremap = true, silent = true })
 
 vim.keymap.set("", "<C-j>", "<C-w>j", { noremap = true })
 vim.keymap.set("", "<C-k>", "<C-w>k", { noremap = true })
@@ -54,10 +55,10 @@ vim.cmd([[au FileType python inoremap <buffer> $m if __name__ == '__main__':<cr>
 vim.cmd([[au FileType python inoremap <buffer> $_ def __init__(self, ]])
 vim.cmd([[au FileType python inoremap <buffer> $i import]])
 
-vim.cmd([[autocmd FileType python map <leader>fi :Autoflake --remove-all-unused-imports<cr>]])
+-- vim.cmd([[autocmd FileType python map <leader>fi :Autoflake --remove-all-unused-imports<cr>]])
 
 -- Diagnose
 vim.keymap.set("n", "gl", [[<cmd>lua vim.diagnostic.open_float(0, {scope = "line"})<CR>]])
 
 -- Text
-vim.cmd[[command! -nargs=* Wrap set wrap linebreak nolist]]
+vim.cmd([[command! -nargs=* Wrap set wrap linebreak nolist]])
